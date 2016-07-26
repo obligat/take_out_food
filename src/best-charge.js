@@ -44,16 +44,17 @@ function isHalfDiscount(cartItems, proInfo) {
 
 function chooseDiscount(cartItems) {
     let total=getTotal(cartItems);
-    let proInfo=loadPromotions;
+    let proInfo=loadPromotions();
+
     let halfPriceItems=isHalfDiscount(cartItems,proInfo);
     let text='';
     let savedHalfMoney=0;
     for(let item of cartItems){
-          for(let i of halfPriceItems){
-              if(item.name===i){
-                  savedHalfMoney+=item.price/2*item.count;
-              }
-          }
+        for(let i of halfPriceItems){
+            if(item.name===i){
+                savedHalfMoney+=(item.price/2)*item.count;
+            }
+        }
     }
     if(total>30&&savedHalfMoney>6){
         text='使用优惠:\n'+
@@ -61,8 +62,7 @@ function chooseDiscount(cartItems) {
     }
     else if(total>30){
         text='使用优惠:\n'+
-        '满30减6元，省6元';
+            '满30减6元，省6元';
     }
     return text;
-
 }
